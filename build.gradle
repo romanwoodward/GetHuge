@@ -100,6 +100,7 @@ dependencies {
     implementation "org.apache.grails:grails-logging"
     implementation "org.apache.grails:grails-rest-transforms"
     implementation "org.apache.grails:grails-scaffolding"
+    implementation "org.apache.grails:grails-spring-security:7.0.2-SNAPSHOT"
     implementation "org.apache.grails:grails-services"
     implementation "org.apache.grails:grails-url-mappings"
     implementation "org.apache.grails:grails-views-gson"

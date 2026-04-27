@@ -1,3 +1,5 @@
-// Place your Spring DSL code here
+import com.example.UserPasswordEncoderListener
+
 beans = {
+    userPasswordEncoderListener(UserPasswordEncoderListener)
 }

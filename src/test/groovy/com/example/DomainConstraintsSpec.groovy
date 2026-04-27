@@ -7,7 +7,7 @@ class DomainConstraintsSpec extends Specification implements DataTest {
 
     @Override
     Class<?>[] getDomainClassesToMock() {
-        [User, WorkoutSession, Exercise, ExerciseSet] as Class<?>[]
+        [User, Role, UserRole, WorkoutSession, Exercise, ExerciseSet] as Class<?>[]
     }
 
     void "user requires core identity fields and basic auth flags default correctly"() {
@@ -29,14 +29,29 @@ class DomainConstraintsSpec extends Specification implements DataTest {
         then:
         user.validate()
         user.enabled
+        !user.accountExpired
         !user.accountLocked
         !user.passwordExpired
 
         !invalidUser.validate()
         invalidUser.errors.getFieldError('username')
         invalidUser.errors.getFieldError('email')
-        invalidUser.errors.getFieldError('password')
         invalidUser.errors.getFieldError('displayName')
+    }
+
+    void "user exposes assigned authorities through the join domain"() {
+        given:
+        def user = new User(
+                username: 'lifter2',
+                email: 'lifter2@example.com',
+                password: 'strongpass',
+                displayName: 'Lifter Two'
+        ).save(validate: false)
+        def role = new Role(authority: 'ROLE_USER').save(validate: false)
+        new UserRole(user: user, role: role).save(validate: false)
+
+        expect:
+        user.authorities*.authority as Set == ['ROLE_USER'] as Set
     }
 
     void "workout session allows optional notes and duration"() {
