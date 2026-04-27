@@ -38,7 +38,8 @@ class User implements Serializable {
     }
 
     static mapping = {
-        password column: '`password`'
+        table 'app_user'
+        password column: 'password_hash'
         sort dateCreated: 'desc'
     }
 }
