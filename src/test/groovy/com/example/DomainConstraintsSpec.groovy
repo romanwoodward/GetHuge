@@ -76,7 +76,13 @@ class DomainConstraintsSpec extends Specification implements DataTest {
 
     void "exercise set enforces positive set metrics and supported units"() {
         given:
-        def exercise = new Exercise(name: 'Bench Press', primaryMuscleGroup: 'Chest')
+        def owner = new User(
+                username: 'owner1',
+                email: 'owner1@example.com',
+                password: 'strongpass',
+                displayName: 'Owner One'
+        )
+        def exercise = new Exercise(owner: owner, name: 'Bench Press', primaryMuscleGroup: 'Chest')
         def session = new WorkoutSession(
                 user: new User(
                         username: 'sam',

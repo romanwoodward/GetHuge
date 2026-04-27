@@ -2,6 +2,7 @@ package com.example
 
 class Exercise {
 
+    User owner
     String name
     String primaryMuscleGroup
     String equipment
@@ -11,9 +12,11 @@ class Exercise {
     Date lastUpdated
 
     static hasMany = [exerciseSets: ExerciseSet]
+    static belongsTo = [owner: User]
 
     static constraints = {
-        name blank: false, unique: true, maxSize: 120
+        owner nullable: false
+        name blank: false, unique: 'owner', maxSize: 120
         primaryMuscleGroup blank: false, maxSize: 50
         equipment nullable: true, maxSize: 50
         description nullable: true, maxSize: 1000
