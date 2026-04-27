@@ -25,7 +25,7 @@ class BootStrap {
             admin = new User(
                     username: 'admin',
                     password: springSecurityService.encodePassword('ChangeMe123!'),
-                    email: 'admin@gethuge.local',
+                    email: 'admin@gethuge.example',
                     displayName: 'Admin',
                     enabled: true
             ).save(failOnError: true)
