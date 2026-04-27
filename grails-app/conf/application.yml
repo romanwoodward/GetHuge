@@ -65,6 +65,12 @@ grails:
         - pattern: /index
           access:
           - permitAll
+        - pattern: /login/**
+          access:
+          - permitAll
+        - pattern: /logout/**
+          access:
+          - permitAll
         - pattern: /error
           access:
           - permitAll

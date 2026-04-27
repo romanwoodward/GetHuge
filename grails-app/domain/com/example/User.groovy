@@ -24,7 +24,7 @@ class User implements Serializable {
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [workoutSessions: WorkoutSession]
+    static hasMany = [workoutSessions: WorkoutSession, exercises: Exercise]
 
     Set<Role> getAuthorities() {
         (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
