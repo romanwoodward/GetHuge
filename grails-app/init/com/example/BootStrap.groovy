@@ -32,10 +32,10 @@ class BootStrap {
         }
 
         if (!UserRole.exists(admin.id, userRole.id)) {
-            UserRole.create(admin, userRole, true)
+            UserRole.create(admin, userRole)
         }
         if (!UserRole.exists(admin.id, adminRole.id)) {
-            UserRole.create(admin, adminRole, true)
+            UserRole.create(admin, adminRole)
         }
     }
 }
