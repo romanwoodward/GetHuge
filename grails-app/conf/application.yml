@@ -95,7 +95,7 @@ grails:
 dataSource:
   driverClassName: org.postgresql.Driver
   username: postgres
-  password: ''
+  password: 'postgres'
   pooled: true
   jmxExport: true
 environments:
