@@ -15,7 +15,7 @@ class GetHugeSpec extends ContainerGebSpec {
         when: 'visiting the home page'
             go('/')
 
-        then: 'the page title is correct'
-            title == 'Welcome to Grails'
+        then: 'anonymous users are sent to the sign-in page'
+            title == 'Sign in'
     }
 }
