@@ -24,7 +24,7 @@ class User implements Serializable {
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [workoutSessions: WorkoutSession, exercises: Exercise]
+    static hasMany = [workoutSessions: WorkoutSession, exercises: Exercise, oAuthIDs: OAuthID]
 
     Set<Role> getAuthorities() {
         (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
@@ -33,8 +33,8 @@ class User implements Serializable {
     static constraints = {
         username blank: false, unique: true, size: 3..50
         password blank: false, password: true
-        email blank: false, unique: true, email: true, maxSize: 255
-        displayName blank: false, maxSize: 100
+        email nullable: true, unique: true, email: true, maxSize: 255
+        displayName nullable: true, maxSize: 100
     }
 
     static mapping = {

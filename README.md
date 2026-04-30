@@ -31,3 +31,20 @@
 
 - [Grails Scaffolding documentation](https://grails.apache.org/docs/snapshot/guide/scaffolding.html)
 
+## Google OAuth Setup
+
+This app uses the Grails Spring Security OAuth2 plugin plus the Google provider extension.
+
+Set these environment variables before starting the app:
+
+- `GOOGLE_API_KEY`
+- `GOOGLE_API_SECRET`
+
+In Google Cloud Console, create an OAuth 2.0 client and add this authorized redirect URI for local development:
+
+- `http://localhost:8080/oauth2/google/callback`
+
+After Google returns to the app, it automatically creates the local user record on first login, stores the linked OAuth identity, and then sends the user to the dashboard.
+
+The login button in the app uses the `google` provider name configured in [grails-app/conf/application.yml](grails-app/conf/application.yml).
+
