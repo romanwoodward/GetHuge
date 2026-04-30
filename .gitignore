@@ -1,6 +1,7 @@
 ### Gradle ###
 .gradle
 .gradle-user/
+.gradle-user-local/
 .gradle-auth*/
 build/
 !gradle/wrapper/gradle-wrapper.jar

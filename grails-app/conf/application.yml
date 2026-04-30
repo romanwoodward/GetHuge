@@ -57,6 +57,20 @@ grails:
         authorityJoinClassName: com.example.UserRole
       authority:
         className: com.example.Role
+      oauth2:
+        active: true
+        domainClass: com.example.OAuthID
+        registration:
+          roleNames:
+          - ROLE_USER
+        providers:
+          google:
+            api: com.github.scribejava.apis.GoogleApi20
+            api_key: ${GOOGLE_API_KEY:}
+            api_secret: ${GOOGLE_API_SECRET:}
+            callback: /oauth2/google/callback
+            successUri: /oauth2/google/complete
+            failureUri: /login/auth
       controllerAnnotations:
         staticRules:
         - pattern: /
@@ -69,6 +83,9 @@ grails:
           access:
           - permitAll
         - pattern: /logout/**
+          access:
+          - permitAll
+        - pattern: /oauth2/**
           access:
           - permitAll
         - pattern: /error
