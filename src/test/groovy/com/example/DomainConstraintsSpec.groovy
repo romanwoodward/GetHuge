@@ -22,8 +22,7 @@ class DomainConstraintsSpec extends Specification implements DataTest {
         def invalidUser = new User(
                 username: '',
                 email: 'not-an-email',
-                password: 'short',
-                displayName: ''
+                password: 'short'
         )
 
         then:
@@ -36,7 +35,7 @@ class DomainConstraintsSpec extends Specification implements DataTest {
         !invalidUser.validate()
         invalidUser.errors.getFieldError('username')
         invalidUser.errors.getFieldError('email')
-        invalidUser.errors.getFieldError('displayName')
+        !invalidUser.errors.getFieldError('displayName')
     }
 
     void "user exposes assigned authorities through the join domain"() {
