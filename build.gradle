@@ -2,6 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
+           url = 'https://repo.grails.org/grails/core'
+        }
+        maven {
            url = 'https://repo.grails.org/grails/restricted'
         }
         maven {
@@ -54,6 +57,9 @@ group = "com.example"
 repositories {
     mavenCentral()
     maven {
+       url = 'https://repo.grails.org/grails/core'
+    }
+    maven {
        url = 'https://repo.grails.org/grails/restricted'
     }
     maven {
@@ -101,6 +107,9 @@ dependencies {
     implementation "org.apache.grails:grails-rest-transforms"
     implementation "org.apache.grails:grails-scaffolding"
     implementation "org.apache.grails:grails-spring-security:7.0.2-SNAPSHOT"
+    implementation "org.apache.grails:grails-spring-security-oauth2:7.0.1"
+    implementation "org.grails.plugins:spring-security-oauth2-google:1.2.0"
+    implementation "com.github.scribejava:scribejava-apis:8.3.3"
     implementation "org.apache.grails:grails-services"
     implementation "org.apache.grails:grails-url-mappings"
     implementation "org.apache.grails:grails-views-gson"
