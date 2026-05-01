@@ -28,6 +28,9 @@
                 <li class="nav-item">
                     <g:link controller="workoutSession" class="nav-link">Workouts</g:link>
                 </li>
+                <li class="nav-item">
+                    <g:link controller="progressPhoto" class="nav-link">Progress Photos</g:link>
+                </li>
                 <sec:ifLoggedIn>
                     <li class="nav-item">
                         <g:link controller="profile" action="complete" class="nav-link">Edit profile</g:link>
