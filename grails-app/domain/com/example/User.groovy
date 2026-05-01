@@ -2,11 +2,9 @@ package com.example
 
 import grails.compiler.GrailsCompileStatic
 import groovy.transform.EqualsAndHashCode
-import groovy.transform.ToString
 
 @GrailsCompileStatic
 @EqualsAndHashCode(includes = 'username')
-@ToString(includes = 'username', includeNames = true, includePackage = false)
 class User implements Serializable {
 
     private static final long serialVersionUID = 1
@@ -15,6 +13,9 @@ class User implements Serializable {
     String password
     String email
     String displayName
+    String firstName
+    String lastName
+    Integer weeklyWorkoutGoal
 
     boolean enabled = true
     boolean accountExpired = false
@@ -35,11 +36,41 @@ class User implements Serializable {
         password blank: false, password: true
         email nullable: true, unique: true, email: true, maxSize: 255
         displayName nullable: true, maxSize: 100
+        firstName nullable: true, maxSize: 50
+        lastName nullable: true, maxSize: 50
+        weeklyWorkoutGoal nullable: true, min: 1, max: 21
     }
 
     static mapping = {
         table 'app_user'
         password column: 'password_hash'
         sort dateCreated: 'desc'
+    }
+
+    @Override
+    String toString() {
+        fullName
+    }
+
+    String getFullName() {
+        String trimmedFirstName = firstName?.trim()
+        String trimmedLastName = lastName?.trim()
+        if (trimmedFirstName && trimmedLastName) {
+            return "${trimmedFirstName} ${trimmedLastName}"
+        }
+
+        if (trimmedFirstName) {
+            return trimmedFirstName
+        }
+
+        if (trimmedLastName) {
+            return trimmedLastName
+        }
+
+        displayName?.trim() ?: username
+    }
+
+    boolean isProfileComplete() {
+        firstName?.trim() && lastName?.trim() && weeklyWorkoutGoal != null && weeklyWorkoutGoal > 0
     }
 }

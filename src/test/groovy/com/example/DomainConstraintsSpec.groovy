@@ -38,6 +38,23 @@ class DomainConstraintsSpec extends Specification implements DataTest {
         !invalidUser.errors.getFieldError('displayName')
     }
 
+    void "user builds a full name and profile completion state"() {
+        given:
+        def user = new User(
+                username: 'lifter3',
+                email: 'lifter3@example.com',
+                password: 'strongpass',
+                firstName: 'Jordan',
+                lastName: 'Miles',
+                weeklyWorkoutGoal: 4
+        )
+
+        expect:
+        user.fullName == 'Jordan Miles'
+        user.toString() == 'Jordan Miles'
+        user.profileComplete
+    }
+
     void "user exposes assigned authorities through the join domain"() {
         given:
         def user = new User(

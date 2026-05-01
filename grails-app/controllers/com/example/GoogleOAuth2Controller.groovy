@@ -27,7 +27,9 @@ class GoogleOAuth2Controller extends AuthenticatedController {
 
         Map profile = fetchGoogleProfile(accessToken.accessToken as String)
         String email = profile.email as String
-        String displayName = (profile.name ?: email) as String
+        String firstName = profile.given_name as String
+        String lastName = profile.family_name as String
+        String displayName = (profile.name ?: [firstName, lastName].findAll { it?.trim() }.join(' ') ?: email) as String
 
         if (!email) {
             flash.error = 'Google did not return an email address.'
@@ -44,6 +46,8 @@ class GoogleOAuth2Controller extends AuthenticatedController {
                     username: buildUsername(email),
                     email: email,
                     displayName: displayName,
+                    firstName: firstName,
+                    lastName: lastName,
                     enabled: true,
                     password: rawPassword
             )
@@ -51,6 +55,8 @@ class GoogleOAuth2Controller extends AuthenticatedController {
         } else {
             user.email = user.email ?: email
             user.displayName = user.displayName ?: displayName
+            user.firstName = user.firstName ?: firstName
+            user.lastName = user.lastName ?: lastName
         }
 
         if (!user.save(flush: true)) {
@@ -87,7 +93,11 @@ class GoogleOAuth2Controller extends AuthenticatedController {
 
         springSecurityService.reauthenticate(user.username)
         session.removeAttribute(sessionKey)
-        redirect(uri: '/dashboard')
+        if (user.profileComplete) {
+            redirect(uri: '/dashboard')
+        } else {
+            redirect(controller: 'profile', action: 'complete')
+        }
     }
 
     private Map fetchGoogleProfile(String bearerToken) {

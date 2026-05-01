@@ -6,19 +6,48 @@
 </head>
 <body>
 <div class="row g-4 mb-4">
-    <div class="col-12">
+    <div class="col-12 col-lg-6">
         <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3">
             <div>
                 <p class="text-uppercase text-body-secondary small mb-1">Signed in</p>
-                <h1 class="h3 mb-0">${currentUser}</h1>
+                <h1 class="h3 mb-1">${currentUser.fullName}</h1>
+                <p class="text-body-secondary mb-0">Keep your training streak moving.</p>
             </div>
-            <div class="d-flex gap-2">
-                <g:link controller="exercise" action="create" class="btn btn-outline-primary">
-                    <i class="bi bi-plus-lg me-1"></i>Exercise
-                </g:link>
-                <g:link controller="workoutSession" action="create" class="btn btn-primary">
-                    <i class="bi bi-plus-lg me-1"></i>Workout
-                </g:link>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="text-uppercase text-body-secondary small mb-2">Weekly goal</div>
+                <div class="display-6 fw-semibold mb-1">${weeklyWorkoutCount}</div>
+                <p class="text-body-secondary mb-3">
+                    workout${weeklyWorkoutCount == 1 ? '' : 's'} completed this week
+                </p>
+                <g:if test="${weeklyWorkoutGoal > 0}">
+                    <div class="progress" style="height: .8rem;">
+                        <div class="progress-bar" role="progressbar"
+                             style="width: ${weeklyWorkoutProgressPercent}%"
+                             aria-valuenow="${weeklyWorkoutCount}"
+                             aria-valuemin="0"
+                             aria-valuemax="${weeklyWorkoutGoal}">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between small text-body-secondary mt-2">
+                        <span>${weeklyWorkoutCount} of ${weeklyWorkoutGoal}</span>
+                        <span>${weeklyWorkoutProgressPercent}%</span>
+                    </div>
+                    <g:link controller="profile" action="complete" class="btn btn-sm btn-outline-primary mt-3">
+                        Edit goal
+                    </g:link>
+                </g:if>
+                <g:else>
+                    <p class="text-body-secondary mb-0">
+                        Set a weekly workout goal in your profile to start tracking progress here.
+                    </p>
+                    <g:link controller="profile" action="complete" class="btn btn-sm btn-outline-primary mt-3">
+                        Complete profile
+                    </g:link>
+                </g:else>
             </div>
         </div>
     </div>
@@ -73,8 +102,8 @@
         </div>
     </div>
 
-    <div class="col-12 col-lg-6">
-        <div class="card shadow-sm h-100">
+    <div class="col-12 col-lg-6 d-flex flex-column gap-4">
+        <div class="card shadow-sm flex-grow-1">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h2 class="h5 mb-0">Recent workouts</h2>
