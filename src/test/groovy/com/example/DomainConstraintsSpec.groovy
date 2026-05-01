@@ -7,7 +7,7 @@ class DomainConstraintsSpec extends Specification implements DataTest {
 
     @Override
     Class<?>[] getDomainClassesToMock() {
-        [User, Role, UserRole, WorkoutSession, Exercise, ExerciseSet] as Class<?>[]
+        [User, Role, UserRole, WorkoutSession, Exercise, ExerciseSet, ProgressPhoto] as Class<?>[]
     }
 
     void "user requires core identity fields and basic auth flags default correctly"() {
@@ -126,5 +126,27 @@ class DomainConstraintsSpec extends Specification implements DataTest {
         invalidSet.errors.getFieldError('reps')
         invalidSet.errors.getFieldError('weight')
         invalidSet.errors.getFieldError('unit')
+    }
+
+    void "progress photo requires a valid image file record"() {
+        given:
+        def user = new User(
+                username: 'photo1',
+                email: 'photo1@example.com',
+                password: 'strongpass',
+                displayName: 'Photo One'
+        )
+
+        when:
+        def photo = new ProgressPhoto(
+                user: user,
+                originalFilename: 'progress.png',
+                storedFilename: 'abc.png',
+                contentType: 'image/png',
+                fileSize: 1234L
+        )
+
+        then:
+        photo.validate()
     }
 }
