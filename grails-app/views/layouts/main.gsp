@@ -28,7 +28,22 @@
                 <li class="nav-item">
                     <g:link controller="workoutSession" class="nav-link">Workouts</g:link>
                 </li>
+                <sec:ifLoggedIn>
+                    <li class="nav-item">
+                        <g:link controller="profile" action="complete" class="nav-link">Edit profile</g:link>
+                    </li>
+                </sec:ifLoggedIn>
             </ul>
+            <sec:ifLoggedIn>
+                <div class="d-flex flex-column flex-lg-row gap-2 ms-lg-auto">
+                    <g:link controller="exercise" action="create" class="btn btn-outline-primary">
+                        <i class="bi bi-plus-lg me-1"></i>Exercise
+                    </g:link>
+                    <g:link controller="workoutSession" action="create" class="btn btn-primary">
+                        <i class="bi bi-plus-lg me-1"></i>Workout
+                    </g:link>
+                </div>
+            </sec:ifLoggedIn>
         </div>
     </div>
 </nav>
